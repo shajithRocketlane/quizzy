@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Question from "../components/Question"
 import {styled } from 'styled-components'
 import { useDispatch, useSelector } from "react-redux"
-import { selectQuestions, submitQuiz } from "../store"
+import { selectQuestions, setQuiz, submitQuiz } from "../store"
 import axios from "axios"
 
 const StyledQuiz = styled.div`
@@ -38,14 +38,18 @@ const StyledQuiz = styled.div`
 ` 
 
 async function fetchQuiz(){
-  const data = await axios.get('https://dadf-118-185-191-21.ngrok-free.app/quiz/combo').then(data => data)
+  const data = await axios.get('https://dadf-118-185-191-21.ngrok-free.app/quiz/combo').then(data => data.data)
   console.log(data)
+  return data
 }
 
 function Quiz() {
     const dispatch = useDispatch()
+    const state = useSelector(selectQuestions)
     useEffect(()=>{
-      fetchQuiz()
+      let data = fetchQuiz()
+      dispatch(setQuiz({data}))
+      console.log(state)
     },[])
     const questions = useSelector(selectQuestions).quiz.questions
 
@@ -54,8 +58,8 @@ function Quiz() {
         <p>Quiz</p>
         <div>
         {
-            questions.map(({qid,qn,oid,opt},index)=>(
-                <Question qid={qid} question={qn} oid={oid} options={opt} index={index} key={index}/>
+            questions.map(({q_id,ques,o_id,opt},index)=>(
+                <Question q_id={q_id} ques={ques} o_id={o_id} options={opt} index={index} key={index}/>
             ))
         }
         </div>

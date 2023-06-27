@@ -4,9 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 type QnState = {
-    qid:string,
-    qn:string,
-    oid:string[],
+    q_id:string,
+    ques:string,
+    o_id:string[],
     opt:string[],
     choice:string
 }
@@ -167,9 +167,9 @@ function AddQuestion() {
             setOpt('')
             setOptions([])
             let temp:QnState= {
-                qid:uuidv4(),
-                qn:qn,
-                oid:generateRandomIds(4),
+                q_id:uuidv4(),
+                ques:qn,
+                o_id:generateRandomIds(4),
                 opt:options,
                 choice:''
             }

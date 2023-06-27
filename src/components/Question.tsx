@@ -21,14 +21,14 @@ const StyledQuestion = styled.form`
 
 
 type QuestionProps = {
-    qid : string,
-    question: string,
+    q_id : string,
+    ques: string,
     options : string[],
-    oid:string[],
+    o_id:string[],
     index:number
 }
 
-function Question({qid,question,options,oid,index}:QuestionProps) {
+function Question({q_id,ques,options,o_id,index}:QuestionProps) {
   const [checked,setChecked] = useState<string[]>([])
   const dispatch = useDispatch()
   const [qna,setQna] = useState<{[qid:string]:string}[]>([])
@@ -49,28 +49,28 @@ function Question({qid,question,options,oid,index}:QuestionProps) {
     let temp = qna
     let keyExists = false
     for(let i=0;i<temp.length;i++){
-        if(qid in temp[i]){
+        if(q_id in temp[i]){
             keyExists = true
-            temp[i] = {qid: e.target.value}
+            temp[i] = {q_id: e.target.value}
         }
     }
-    if(!keyExists)temp.push({[qid]:e.target.value})
+    if(!keyExists)temp.push({[q_id]:e.target.value})
     setQna(temp)
-    dispatch(answerQuestion({qid,choice}))
+    dispatch(answerQuestion({q_id,choice}))
   }
 
     return (
     <StyledQuestion>
             <div className={index%2?'odd':'even'}>
-            <p>{question}</p>
+            <p>{ques}</p>
             {
                 options.map((option,index)=>(
                     <div key={index} >
                         <input 
                         type="checkbox" 
-                        value={oid[index]} 
-                        checked = {checked.includes(oid[index])}
-                        onChange={(e)=>handleChange(e,oid[index])}
+                        value={o_id[index]} 
+                        checked = {checked.includes(o_id[index])}
+                        onChange={(e)=>handleChange(e,o_id[index])}
                         />
                         {option}
                     </div>

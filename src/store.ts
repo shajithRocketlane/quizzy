@@ -1,39 +1,39 @@
 import { configureStore, createSlice, current } from "@reduxjs/toolkit";
 
 type QnState = {
-    qid:string,
-    qn:string,
-    oid:string[],
+    q_id:string,
+    ques:string,
+    o_id:string[],
     opt:string[],
     choice:string
 }
 
 let questions : QnState[] = [
     {
-        qid:'q1',
-        qn:'What is your favourite fruit ?',
-        oid:['o1','o2','o3','o4'],
+        q_id:'q1',
+        ques:'What is your favourite fruit ?',
+        o_id:['o1','o2','o3','o4'],
         opt:['Apple','Banana','Cherry','Durian'],
         choice:''
     },
     {
-        qid:'q2',
-        qn:'What is the color of your bugatti ?',
-        oid:['o1','o2','o3','o4'],
+        q_id:'q2',
+        ques:'What is the color of your bugatti ?',
+        o_id:['o1','o2','o3','o4'],
         opt:['Red','Blue','White','No Bugatti'],
         choice:''
     },
     {
-        qid:'q3',
-        qn:'What is 1+1 ?',
-        oid:['o1','o2','o3','o4'],
+        q_id:'q3',
+        ques:'What is 1+1 ?',
+        o_id:['o1','o2','o3','o4'],
         opt:['1','2','3','4'],
         choice:''
     },
     {
-        qid:'q4',
-        qn:'Who is the next Superman ?',
-        oid:['o1','o2','o3','o4'],
+        q_id:'q4',
+        ques:'Who is the next Superman ?',
+        o_id:['o1','o2','o3','o4'],
         opt:['Tom Holland','Kevin Hart','Rock','Henry Cavil'],
         choice:''
     }
@@ -57,8 +57,8 @@ const quizSlice = createSlice({
             console.log(current(state).questions)
         },
         answerQuestion : (state,action)=>{
-            const {qid,choice} = action.payload
-            let question = state.questions.find((qn)=>(qn.qid===qid))
+            const {q_id,choice} = action.payload
+            let question = state.questions.find((qn)=>(qn.q_id===q_id))
             if(question)question.choice = choice
             sessionStorage.setItem('quiz',JSON.stringify(current(state)))
         }
@@ -71,6 +71,6 @@ export default configureStore({
     }
 })
 
-export const {submitQuiz,answerQuestion} = quizSlice.actions
+export const {submitQuiz,answerQuestion,setQuiz} = quizSlice.actions
 
 export const selectQuestions = (state:QnState) => state
