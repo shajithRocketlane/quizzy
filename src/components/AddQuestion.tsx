@@ -64,7 +64,17 @@ const StyledAddQn = styled.form`
     gap: 10px;
   }
   & .options > p{
+    border: 1px solid black;
     font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    gap: 10px;
+    border-radius: 5px;
+    align-items: center;
+    img{
+        margin-top: 2px;
+    }
   }
 
 `
@@ -131,16 +141,24 @@ function AddQuestion() {
         }
     }
 
-function generateRandomIds(count: number): string[] {
-  const randomIds: string[] = [];
+    function remove(index:number){
+        let newOptions:string[] = []
+        for(let i=0;i<options.length;i++){
+            if(index!==i)newOptions.push(options[i])
+        }
+        setOptions(newOptions)
+    }
 
-  for (let i = 0; i < count; i++) {
-    const randomId = uuidv4();
-    randomIds.push(randomId);
-  }
+    function generateRandomIds(count: number): string[] {
+    const randomIds: string[] = [];
 
-  return randomIds;
-}
+    for (let i = 0; i < count; i++) {
+        const randomId = uuidv4();
+        randomIds.push(randomId);
+    }
+
+    return randomIds;
+    }
 
     function addQuestion(){
         if(qn.length>0){
@@ -199,7 +217,9 @@ function generateRandomIds(count: number): string[] {
         <div className="options">
             {
                 options.map((option,index)=>(
-                    <p className="choice" key={index}>{option}</p>
+                    <p className="choice" key={index}>{option} <span><img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/minus.png" alt="minus"
+                        onClick={()=>{remove(index)}}
+                    /></span></p>
                 ))
             }
         </div>

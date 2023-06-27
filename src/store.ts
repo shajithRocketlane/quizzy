@@ -50,6 +50,9 @@ const quizSlice = createSlice({
         questions
     },
     reducers:{
+        setQuiz :(state,action)=>{
+            state = action.payload
+        },
         submitQuiz: (state)=>{
             console.log(current(state).questions)
         },

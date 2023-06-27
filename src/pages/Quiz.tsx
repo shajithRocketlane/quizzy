@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Question from "../components/Question"
 import {styled } from 'styled-components'
 import { useDispatch, useSelector } from "react-redux"
 import { selectQuestions, submitQuiz } from "../store"
+import axios from "axios"
 
 const StyledQuiz = styled.div`
   margin-top: 20px;
@@ -36,10 +37,16 @@ const StyledQuiz = styled.div`
 
 ` 
 
-
+async function fetchQuiz(){
+  const data = await axios.get('https://dadf-118-185-191-21.ngrok-free.app/quiz/combo').then(data => data)
+  console.log(data)
+}
 
 function Quiz() {
     const dispatch = useDispatch()
+    useEffect(()=>{
+      fetchQuiz()
+    },[])
     const questions = useSelector(selectQuestions).quiz.questions
 
   return (
